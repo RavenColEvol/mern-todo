@@ -6,7 +6,7 @@ const Todo = require('../models/todo.models')
 // All Todos
 router.get('/', (req, res) => {
     const decode = jwt_decode(req.headers.authorization.split(' ')[1]);
-    const user_id = decode['id'];
+    user_id = decode['id'];
     Todo.find({owner_id:user_id})
     .then(todos => {
         return res.json({'todos':todos})

@@ -40,9 +40,12 @@ export const loginUser = userData => dispatch => {
             dispatch(createNotification({type:'success', message:'Login Success'}));
         })
         .catch(err =>{
+            if(err.response)
             for(var key in err.response.data) {
                 dispatch(createNotification({type:'error', message:err.response.data[key]}))
             }
+            else
+                dispatch(createNotification({type:'error', message:"Can't Login."}))
         });
 };
 

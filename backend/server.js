@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-
+const path = require('path')
 require('dotenv').config()
 
 const app = express()
@@ -23,8 +23,15 @@ connection.once('open', ()=>{
 })
 
 // API Routes
-app.use('',require('./routes/todo.api'))
+app.use('/api/',require('./routes/todo.api'))
 app.use('/api/users', require('./routes/users.api'))
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname,'../frontend/build')));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname,'..','frontend','build','index.html'));
+    });
+}
 
 
 app.listen(port)

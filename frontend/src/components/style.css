@@ -7,10 +7,23 @@
 
 .center {
     width: 100%;
-    height: 100vh;
+    min-height: 90vh;
     display:flex;
     justify-content: center;
     align-items: center;
+}
+
+.navbar {
+    position: fixed; 
+    z-index: 1; 
+    width: 100%; 
+    padding:0 8rem ;
+}
+
+@media (max-width:926px) {
+    .navbar {
+        padding:0 2rem;
+    }
 }
 
 .mb-1 {
