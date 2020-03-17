@@ -46,8 +46,11 @@ router.post('/todos/delete-todo', (req, res) => {
 
 // Update Todo
 router.post('/todos/update-todo', (req, res) => {
-    Todo.updateOne(req.body)
-    .then(e => res.json({'message': 'Successfully Updated !'}))
+    Todo.replaceOne({_id:req.body._id}, req.body)
+    .then(e => res.json({
+        'message': 'Successfully Updated !',
+        'todo': e
+    }))
     .catch(err => res.status(400).json({'err':err}))
 })
 

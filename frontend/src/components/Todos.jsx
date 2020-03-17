@@ -6,7 +6,7 @@ import { DeleteOutlined, EditOutlined, ProfileOutlined } from '@ant-design/icons
 import './style.css'
 
 import TodoForm from './TodoForm'
-import { getTodos, deleteTodo } from '../redux/actions/todos'
+import { getTodos, deleteTodo, toggleUpdate } from '../redux/actions/todos'
 
 
 const { Text } = Typography;
@@ -14,31 +14,22 @@ const { Text } = Typography;
 
 class Todos extends Component {
 
-    state = {
-        isUpdate: false,
-    }
-
     componentDidMount() {
         this.props.getTodos();
-    }
-
-    handleChange = () => {
-        this.setState({
-            isUpdate: !this.state.isUpdate,
-        })
     }
 
     render() {
         return (
             <div className="container">
                 <div className='mt-3'></div>
-                <TodoForm isUpdate={this.state.isUpdate} />
+                <TodoForm />
 
                 <List header={<Text strong><ProfileOutlined /> Things Todo</Text>} bordered dataSource={this.props.todos}
                     renderItem={todo => (
                         <List.Item
+                            key={todo._id}
                             actions={[
-                                <Button shape='circle' type='primary' onClick={this.handleChange}><EditOutlined /></Button>,
+                                <Button shape='circle' type='primary' onClick={()=>this.props.toggleUpdate(todo)}><EditOutlined /></Button>,
                                 <Button shape='circle' onClick={() => this.props.deleteTodo(todo._id)}><DeleteOutlined /></Button>
                             ]}
                         >
@@ -58,4 +49,4 @@ const mapStateToProps = state => {
     return todos;
 }
 
-export default connect(mapStateToProps, { getTodos, deleteTodo })(Todos);
+export default connect(mapStateToProps, { getTodos, deleteTodo, toggleUpdate })(Todos);

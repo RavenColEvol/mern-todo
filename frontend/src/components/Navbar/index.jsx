@@ -9,7 +9,7 @@ const { Text } = Typography;
 
 function index({logoutUser, isAuthenticated}) {
     return (
-        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+        <Header style={{ position: 'fixed', zIndex: 1, width: '100%', padding:'0 25px' }}>
             
             <Text strong style={{color:'white'}}><span role='img' aria-label='smiling face'>😆</span> FudduList</Text>
             
