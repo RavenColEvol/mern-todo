@@ -3,7 +3,7 @@ import axios from 'axios'
 import {createNotification} from './notification'
 
 export const getTodos = () => dispatch => {
-    axios.get('http://localhost:5000/api')
+    axios.get('/api')
         .then(res => {
             dispatch({
                 type: GET_TODOS,
@@ -19,7 +19,7 @@ export const getTodos = () => dispatch => {
 }
 
 export const deleteTodo = (id) => dispatch => {
-    axios.post('http://localhost:5000/api/todos/delete-todo', { 'id': id })
+    axios.post('/api/todos/delete-todo', { 'id': id })
         .then(res => {
             dispatch({
                 type: DELETE_TODO,
@@ -36,7 +36,7 @@ export const deleteTodo = (id) => dispatch => {
 
 export const addTodo = (todo) => dispatch => {
 
-    axios.post('http://localhost:5000/api/todos/add-todo', todo)
+    axios.post('/api/todos/add-todo', todo)
         .then(res => {
             dispatch({
                 type: ADD_TODO,
@@ -67,7 +67,7 @@ export const isAdding = () => dispatch => {
 
 export const updateTodo = (todo) => dispatch => {
 
-    axios.post('http://localhost:5000/api/todos/update-todo', todo)
+    axios.post('/api/todos/update-todo', todo)
         .then(res => {
             dispatch({
                 type: UPDATE_TODO,
