@@ -12,7 +12,7 @@ const { Text } = Typography
 
 class TodoForm extends React.Component{
     render(){
-        const { values, errors, touched, isSubmitting, isUpdating, isAdding } = this.props;
+        const { values, errors, touched, isSubmitting, isUpdating, isAdding, resetForm } = this.props;
         return(
             <Form className="my-2">
                 {/* Title Field */}
@@ -28,7 +28,7 @@ class TodoForm extends React.Component{
 
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Button type='secondary' onClick={isAdding} block><CloseCircleOutlined />{ isUpdating ? 'CANCEL' : 'CLEAR'}</Button>
+                        <Button type='secondary' onClick={()=>{isAdding();resetForm()}} block><CloseCircleOutlined />{ isUpdating ? 'CANCEL' : 'CLEAR'}</Button>
                     </Col>
                     <Col span={12}>
                         <Button type='primary' htmlType='submit' disabled={isSubmitting} block><PlusCircleOutlined />{ isUpdating ? 'UPDATE TODO' : 'ADD TODO'}</Button>
@@ -43,7 +43,6 @@ class TodoForm extends React.Component{
 const FormikTodoForm = withFormik({
     handleSubmit(values, { resetForm, setSubmitting, props }) {
         if(props.isUpdating){
-            console.log('i ran')
             props.updateTodo({...props.todo,...values})
         }
         else

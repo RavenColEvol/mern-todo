@@ -4,17 +4,18 @@ import {message as notification} from 'antd'
 
 class Notification extends React.Component {
 
-    state = {
-    }
+    state = {}
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if(nextProps !== prevState) {
             switch(nextProps.notification.type) {
                 case 'success':
-                    notification.success(nextProps.notification.message)
+                    notification.loading('Loading', .4)
+                    .then(() => notification.success(nextProps.notification.message))
                     break;
                 case 'error':
-                    notification.error(nextProps.notification.message)
+                    notification.loading('Loading', .4)
+                    .then(() => notification.error(nextProps.notification.message))
                     break;
                 default:
             }
@@ -31,7 +32,7 @@ class Notification extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        notification: state.notification
+        notification: state.notification,
     }
 }
 
