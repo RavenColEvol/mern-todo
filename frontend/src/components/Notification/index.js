@@ -10,12 +10,10 @@ class Notification extends React.Component {
         if(nextProps !== prevState) {
             switch(nextProps.notification.type) {
                 case 'success':
-                    notification.loading('Loading', .4)
-                    .then(() => notification.success(nextProps.notification.message))
+                    notification.success(nextProps.notification.message)
                     break;
                 case 'error':
-                    notification.loading('Loading', .4)
-                    .then(() => notification.error(nextProps.notification.message))
+                    notification.error(nextProps.notification.message)
                     break;
                 default:
             }

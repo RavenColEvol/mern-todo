@@ -1,4 +1,4 @@
-import {GET_TODOS, DELETE_TODO, ADD_TODO, IS_UPDATING, UPDATE_TODO, IS_ADDING} from '../actions/types'
+import {GET_TODOS, DELETE_TODO, ADD_TODO, IS_UPDATING, UPDATE_TODO, IS_ADDING, FETCHING_TODO} from '../actions/types'
 
 const initialState = {
     todos:[],
@@ -6,15 +6,22 @@ const initialState = {
     todo:{
         title:'',
         description: ''
-    }
+    },
+    loading: true
 }
 
 export default (state = initialState, action) => {
     switch(action.type) {
+        case FETCHING_TODO:
+            return {
+                ...state,
+                loading: true
+            }
         case GET_TODOS:
             return {
                 ...state,
-                todos: action.payload
+                todos: action.payload,
+                loading: false
             }
         case ADD_TODO:
             return {

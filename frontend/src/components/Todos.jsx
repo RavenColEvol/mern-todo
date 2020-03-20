@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { List, Typography, Button, Popover } from 'antd'
+import { List, Typography, Button, Popover, Skeleton } from 'antd'
 import { DeleteOutlined, EditOutlined, ProfileOutlined } from '@ant-design/icons'
 import './style.css'
 
@@ -24,29 +24,34 @@ class Todos extends Component {
                 <div className='mt-3'></div>
                 <TodoForm />
 
-                <List header={<Text strong><ProfileOutlined /> Things Todo</Text>} bordered dataSource={this.props.todos}
-                    renderItem={todo => (
-                        <List.Item
-                            key={todo._id}
-                            actions={[
-                                <Button shape='circle' type='primary' onClick={()=>this.props.toggleUpdate(todo)}><EditOutlined /></Button>,
-                                <Button shape='circle' onClick={() => this.props.deleteTodo(todo._id)}><DeleteOutlined /></Button>
-                            ]}
-                        >
-                            <Popover title={todo.title} content={todo.description || 'No description'} placement='right' trigger='hover'>
-                                <Typography.Text mark={todo.checked}>{todo.title}</Typography.Text>
-                            </Popover>
-                        </List.Item>
-                    )}
-                />
+                {
+                    this.props.loading ? <Skeleton active size='small'/> :
+                    <List header={<Text strong><ProfileOutlined /> Things Todo</Text>} bordered dataSource={this.props.todos}
+                        renderItem={todo => (
+                            <List.Item
+                                key={todo._id}
+                                actions={[
+                                    <Button shape='circle' type='primary' onClick={()=>this.props.toggleUpdate(todo)}><EditOutlined /></Button>,
+                                    <Button shape='circle' onClick={() => this.props.deleteTodo(todo._id)}><DeleteOutlined /></Button>
+                                ]}
+                            >
+                                <Popover title={todo.title} content={todo.description || 'No description'} placement='right' trigger='hover'>
+                                    <Typography.Text mark={todo.checked}>{todo.title}</Typography.Text>
+                                </Popover>
+                            </List.Item>
+                        )}
+                    />
+                }
             </div>
         )
     }
 }
 
 const mapStateToProps = state => {
-    const { todos } = state;
-    return todos;
+    return {
+        todos: state.todos.todos,
+        loading: state.todos.loading
+    }
 }
 
 export default connect(mapStateToProps, { getTodos, deleteTodo, toggleUpdate })(Todos);

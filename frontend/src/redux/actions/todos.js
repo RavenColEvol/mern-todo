@@ -1,8 +1,11 @@
-import { GET_TODOS, DELETE_TODO, ADD_TODO, IS_UPDATING, UPDATE_TODO, IS_ADDING } from './types'
+import { GET_TODOS, DELETE_TODO, ADD_TODO, IS_UPDATING, UPDATE_TODO, IS_ADDING , FETCHING_TODO} from './types'
 import axios from 'axios'
 import {createNotification} from './notification'
 
 export const getTodos = () => dispatch => {
+    dispatch({
+        type: FETCHING_TODO
+    })
     axios.get('/api')
         .then(res => {
             dispatch({
